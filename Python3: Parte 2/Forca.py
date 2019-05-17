@@ -3,46 +3,40 @@ def jogar():
     print("***Bem vindo ao jogo da Forca!***")
     print("*********************************")
 
-    palavra_chave = "banana"
-    letras_acertadas = []
+    palavra_secreta = "maça".upper()
+    letras_acertadas = ["_" for letra in palavra_secreta]
 
-    print("Qual nível de dificuldade?")
-    print("(1) Fácil (2) Médio (3) Difícil")
-
-    nivel = int(input("Defina o nível: "))
-
-    if nivel == 1:
-        total_de_tentativas = 20
-    elif nivel == 2:
-        total_de_tentativas = 10
-    else:
-        total_de_tentativas = 5
-
-    for i in range(1, len(palavra_chave) + 1):
-        letras_acertadas.append("_")
+    enforcou = False
+    acertou = False
+    erros = 0
 
     print(letras_acertadas)
 
-    for rodada in range(1, total_de_tentativas + 1):
-        print("Tentativa {} de {}".format(rodada, total_de_tentativas))
-        chute = input("Digite um numero entre 1 e 100: ")
+    while(not enforcou and not acertou):
 
-        index = 0
+        chute = input("Qual letra? ")
+        chute = chute.strip().upper()
 
-        for letra in palavra_chave:
-            if chute.upper() == letra.upper():
-                letras_acertadas[index] = chute
-                print("Encontrei a letra {} na posição {}".format(letra, index))
-            index = index + 1
+        if(chute in palavra_secreta):
+            index = 0
+            for letra in palavra_secreta:
+                if(chute == letra):
+                    letras_acertadas[index] = letra
+                index += 1
+        else:
+            erros += 1
 
-        if "_" not in letras_acertadas:
-            print("Parabéns você acertou!")
-            break
-
+        enforcou = erros == 6
+        acertou = "_" not in letras_acertadas
         print(letras_acertadas)
 
-    print("Que pena você perdeu! A palavra secreta era {}".format(palavra_chave.upper()))
 
+    if(acertou):
+        print("Você ganhou!!")
+    else:
+        print("Você perdeu!!")
+    print("Fim do jogo")
 
 if __name__ == "__main__":
     jogar()
+
